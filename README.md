@@ -63,18 +63,20 @@ cp deploy.env.example deploy.env
 cp web/firebase-config.example.js web/firebase-config.js
 ```
 
-- Paste your values into `firebaseConfig` in `web/firebase-config.js`. Leave `appCheckSiteKey` empty for now.
+- Paste `apiKey`, `authDomain`, `projectId` and `appId` into `firebaseConfig` in `web/firebase-config.js`. The other values are not needed. Leave `appCheckSiteKey` empty for now.
 
 ### 3. Create the Firestore database
 
 - **Build > Firestore Database > Create database**.
 - Keep the database ID `(default)`. The free tier applies to the `(default)` database.
 - Pick a region near you. You cannot change it later.
-- Start in **production mode**. Your own rules replace the default rules on deploy.
+- Start in **production mode**. The database denies everything until step 6 deploys your own rules.
+- If the console says the Cloud Firestore API is disabled, click **Enable** on the page it links to, wait a minute, and try again.
 
 ### 4. Enable Email/Password sign-in
 
-- **Build > Authentication > Get started > Sign-in method > Email/Password > Enable > Save**.
+- Open `https://console.firebase.google.com/project/<project-id>/authentication`.
+- **Get started > Sign-in method > Email/Password > Enable > Save**. A new project has no Auth set up until you click **Get started**.
 - Leave "Email link (passwordless sign-in)" off.
 
 ### 5. Create your owner account
@@ -93,7 +95,8 @@ npm run deploy
 ```
 
 - Deploys the site and the owner-only database rules.
-- Your site is at `https://<project-id>.web.app/`. Sign in with the email and password from step 5.
+- Your site is at `https://<project-id>.web.app/` (the project's default Hosting site; no extra setup). Sign in with the email and password from step 5.
+- If deploy says the site is not found, run `npx -y firebase-tools@latest hosting:sites:list` and check the site ID.
 
 ### 7. Optional: App Check
 
@@ -108,6 +111,7 @@ App Check blocks requests that do not come from your site. Recommended once ever
 
 Other accounts already get nothing, but you can stop them being created at all.
 
+- Do this last, after everything works (the rules check in [AGENTS.md](AGENTS.md) needs sign-ups on).
 - **Authentication > Settings > User actions**: untick **Enable create (sign-up)** and save.
 - To make a new owner account later, tick it again first.
 
@@ -139,9 +143,11 @@ On a phone, an on-screen touch pad appears. Settings let you force it on or off.
 
 ## Clock games
 
-<!-- RTC: filled after emulator check -->
+Some games (for example Pokémon Gold, Silver and Crystal) have a real-time clock in the cartridge.
 
-Some games (for example Pokémon Gold, Silver and Crystal) have a real-time clock in the cartridge. Whether that clock is kept by in-game saves or only by save states is being checked; this section will say which.
+- Your in-game progress is kept by normal in-game saves, as usual.
+- The clock is **not** part of the in-game save file. It resets when you start the game again.
+- Save states do keep the clock. Use **Save state** / **Load state** (or **Auto save state on exit**) if the clock matters to you.
 
 ## Limits
 
@@ -155,6 +161,7 @@ Some games (for example Pokémon Gold, Silver and Crystal) have a real-time cloc
 
 Not built yet, and good first contributions:
 
+- Real-time clock in in-game saves (clock games)
 - Link cable, netplay
 - Cheats, rewind, fast-forward
 - Shaders and screen filters

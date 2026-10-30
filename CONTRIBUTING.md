@@ -4,12 +4,12 @@ Thanks for helping. Ideas, bug reports and pull requests are all welcome. Good s
 
 ## Run it locally
 
-1. Set up your own Firebase project once (README **Setup**, steps 1-5). There is no local fake backend: you develop against your own real project.
+1. Set up your own Firebase project once (README **Setup**, steps 1-6). Step 6 deploys the database rules; until then Firestore denies everything. There is no local fake backend: you develop against your own real project.
 2. Serve the `web/` folder with any static server, for example:
    ```sh
    python3 -m http.server 8000 -d web
    ```
-3. Open `http://localhost:8000/` and sign in with your owner account.
+3. Open `http://localhost:8000/` and sign in with your owner account. `localhost` is an authorized Auth domain by default, so sign-in works there.
 
 No build step: edit a file, reload the page.
 

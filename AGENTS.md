@@ -31,12 +31,13 @@ Prerequisites: Node.js 20+, `npm install` done.
    npx -y firebase-tools@latest apps:create web gbc-to-go --project <project-id>
    npx -y firebase-tools@latest apps:sdkconfig web <app-id> --project <project-id>
    ```
-   `apps:create` prints the app ID. Copy `web/firebase-config.example.js` to `web/firebase-config.js` and fill `firebaseConfig` with the values `apps:sdkconfig` prints. Keep `appCheckSiteKey = ''`.
+   `apps:create` ends with a line `firebase apps:sdkconfig WEB <app-id>`: take the app ID from there. `apps:sdkconfig` prints a JSON config. Copy `web/firebase-config.example.js` to `web/firebase-config.js` and fill `firebaseConfig` with only `apiKey`, `authDomain`, `projectId` and `appId` from that JSON. Keep `appCheckSiteKey = ''`.
 4. **Create Firestore `(default)`.** **Ask the human** for a region near them (`npx -y firebase-tools@latest firestore:locations` lists them). The free tier applies to the `(default)` database only.
    ```sh
    npx -y firebase-tools@latest firestore:databases:create "(default)" --location=<region> --project <project-id>
    ```
-5. **Enable Email/Password sign-in.** **Ask the human**: Firebase console > Authentication > Get started > Sign-in method > Email/Password > Enable > Save.
+   On a brand-new project this can fail with HTTP 403 "Cloud Firestore API has not been used in project ... or it is disabled". Fix: `gcloud services enable firestore.googleapis.com --project <project-id>` (or **ask the human** to open the URL from the error and click Enable), wait a minute, retry. The new database denies everything until step 7 deploys the rules.
+5. **Enable Email/Password sign-in.** **Ask the human.** The CLI cannot do this: a new project has no Auth config yet (the Identity Toolkit admin API returns `CONFIGURATION_NOT_FOUND`). The human opens `https://console.firebase.google.com/project/<project-id>/authentication` > Get started > Sign-in method > Email/Password > Enable > Save. Wait for them to confirm.
 6. **Create the owner account.** **Ask the human** for the owner email. Best: ask the human to run it in their own terminal, so the password never enters your context:
    ```sh
    node scripts/create-owner.mjs <owner-email>
@@ -47,7 +48,7 @@ Prerequisites: Node.js 20+, `npm install` done.
    DRY_RUN=1 npm run deploy   # optional: prints targets, writes .build/firestore.rules
    npm run deploy
    ```
-   The script substitutes `OWNER_UID` into `rules/firestore.rules`, deploys hosting + Firestore rules, and checks that `https://<project-id>.web.app/` returns 200.
+   The script substitutes `OWNER_UID` into `rules/firestore.rules`, deploys hosting + Firestore rules, and checks that `https://<project-id>.web.app/` returns 200. Hosting uses the project's default site `<project-id>.web.app`; no `hosting` init is needed. If deploy says the site is not found, run `npx -y firebase-tools@latest hosting:sites:list --project <project-id>` and **ask the human**.
 8. **Optional App Check.** **Ask the human** whether they want it. If yes, they create a reCAPTCHA v3 key and register it in App Check (README step 7); you set `appCheckSiteKey` in `web/firebase-config.js` and redeploy; they click Enforce for Cloud Firestore after the site still works.
 9. **Optional: disable new sign-ups.** **Ask the human**, after verification passes: Authentication > Settings > User actions > untick "Enable create (sign-up)".
 
@@ -56,7 +57,7 @@ Prerequisites: Node.js 20+, `npm install` done.
 Run after every deploy of a new instance. All must hold:
 
 - [ ] `https://<project-id>.web.app/` returns 200.
-- [ ] `node scripts/verify-rules.mjs` (when present) prints only PASS: owner can read/write `settings/main`; a throwaway user is denied on `roms/x`, `saves/x`, `states/x`, `settings/main`; an oversize chunk (921601 bytes) is denied for the owner; the throwaway user is deleted afterwards.
+- [ ] `OWNER_EMAIL=<email> OWNER_PASSWORD=<password> node scripts/verify-rules.mjs` prints only PASS. It signs in as the owner and creates and deletes a throwaway user, so run it **before** disabling sign-ups. Ask the human to run it if you do not have the password. It checks: owner can read/write `settings/main`; a throwaway user is denied on `roms/x`, `saves/x`, `states/x`, `settings/main`; an oversize chunk (921601 bytes) is denied for the owner; the throwaway user is deleted afterwards.
 - [ ] Live smoke at phone width and desktop: sign in, upload a ROM the human provides, play, make an in-game save, save a state, reload, both are restored.
 - [ ] A non-owner account sees "This account is not the owner of this site."
 - [ ] `git ls-files` lists no ROM, `.sav`, `deploy.env`, `.firebaserc` or `web/firebase-config.js`.
