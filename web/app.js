@@ -48,6 +48,7 @@ export function confirmDialog(msg, okLabel = 'OK') {
   const d = document.getElementById('confirm');
   document.getElementById('confirm-msg').textContent = msg;
   document.getElementById('confirm-ok').textContent = okLabel;
+  if (d.open) return Promise.resolve(false);
   d.returnValue = '';
   d.showModal();
   return new Promise((resolve) => d.addEventListener('close', () => resolve(d.returnValue === 'ok'), { once: true }));

@@ -10,7 +10,8 @@ let actx;
 let running = null;
 
 // Starts the ROM on `canvas`. sram: Uint8Array to load into cartridge RAM (or null). sound: false mutes audio.
-// onSramDirty(getSram) is called at most once per second while the game writes cartridge RAM.
+// onSramDirty(getSram) is called at most once per second while the game writes cartridge RAM;
+// Running.flushDirty() calls it now (if dirty) and returns its result, for leaving the game.
 export async function start(romBytes, { canvas, sram, sound = true, onSramDirty }) {
   stop();
   actx ||= new AudioContext();
@@ -119,6 +120,7 @@ export async function start(romBytes, { canvas, sram, sound = true, onSramDirty 
   running = {
     press, getSram, getState, loadState,
     setSound(on) { soundOn = on; },
+    flushDirty() { if (!dirty) return null; dirty = false; return onSramDirty?.(getSram); },
     stop() {
       cancelAnimationFrame(raf); clearInterval(timer);
       removeEventListener('keydown', kd); removeEventListener('keyup', ku); removeEventListener('pointerdown', wake);

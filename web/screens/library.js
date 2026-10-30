@@ -1,6 +1,7 @@
 import { uploadRom, listRoms, deleteRom } from '../library.js';
 import { hasState } from '../saves.js';
 
+const MAX_ROM = 8 * 1024 * 1024;
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 const badge = (r) => `<span class="badge${r.cgb ? ' cgb' : ''}">${r.cgb ? 'GBC' : 'GB'}</span>`;
 
@@ -17,19 +18,23 @@ export async function mount(root, ctx) {
   root.innerHTML = `<header class="bar">
       <h1 class="wordmark">gbc-to-go</h1>
       <span class="upload-pill pill" role="status" hidden></span>
-      <label class="icon-btn" title="Upload a ROM" aria-label="Upload a ROM">＋<input type="file" accept=".gb,.gbc" hidden></label>
+      <button class="icon-btn" type="button" data-upload title="Upload a ROM" aria-label="Upload a ROM">＋</button>
+      <input type="file" hidden>
       <button class="icon-btn" type="button" data-settings title="Settings" aria-label="Settings">⚙</button>
     </header>
     <section class="library"><p class="muted">Loading your games…</p></section>`;
   const list = root.querySelector('.library');
   const pill = root.querySelector('.upload-pill');
   const input = root.querySelector('input[type=file]');
+  root.querySelector('[data-upload]').onclick = () => input.click();
   root.querySelector('[data-settings]').onclick = () => ctx.show('settings');
 
   input.onchange = async () => {
     const file = input.files[0];
     input.value = '';
     if (!file) return;
+    // Same message as parseHeader; avoids reading huge files into memory.
+    if (file.size > MAX_ROM) return ctx.toast('Not a Game Boy ROM');
     pill.hidden = false;
     pill.textContent = 'Uploading…';
     try {

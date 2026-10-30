@@ -41,7 +41,7 @@ export async function mount(root, ctx) {
   const cloud = s.cloudSaves;
   root.querySelector('.back').onclick = () => ctx.show('library');
 
-  let gone = false, running = null, release = () => {}, pending = null, timer = 0;
+  let gone = false, running = null, release = () => {};
 
   const savedText = () => (cloud && !navigator.onLine ? 'Offline, saved on this device' : 'Saved ✓');
   // Writes the newest SRAM. Called with bytes already read, so it also works after the emulator stopped.
@@ -56,13 +56,8 @@ export async function mount(root, ctx) {
       ctx.toast('Could not save the game. Keep playing; it retries on the next save.');
     }
   };
-  const flushSram = () => {
-    clearTimeout(timer);
-    if (!pending) return null;
-    const bytes = pending();
-    pending = null;
-    return writeBytes(bytes);
-  };
+  // Writes SRAM changed since the emulator's last once-per-second callback.
+  const flushSram = () => running?.flushDirty();
   const autoState = () => (s.saveStates && s.autoStateOnExit && running
     ? writeState(rom.id, running.getState()).catch((e) => { console.error(e); ctx.toast('Could not save the state.'); })
     : null);
@@ -92,17 +87,17 @@ export async function mount(root, ctx) {
       canvas: root.querySelector('canvas'),
       sram,
       sound: s.sound,
-      onSramDirty(getSram) {
-        pending = getSram;
-        clearTimeout(timer);
-        timer = setTimeout(flushSram, 1000);
-      },
+      // The emulator already throttles this to once per second: write straight away.
+      onSramDirty: (getSram) => writeBytes(getSram()),
     });
-    if (gone) { emu.stop(); return; }
+    if (gone) { running.stop(); running = null; return; }
   } catch (e) {
     console.error(e);
     setStatus('Not started');
-    root.querySelector('.console').innerHTML = `<p class="empty">Could not start ${rom.title.replace(/</g, '&lt;')}. ${e.message || ''}</p>`;
+    const p = document.createElement('p');
+    p.className = 'empty';
+    p.textContent = `Could not start ${rom.title}. ${e.message || ''}`;
+    root.querySelector('.console').replaceChildren(p);
     return;
   }
   setStatus(savedText());
