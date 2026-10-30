@@ -1,0 +1,25 @@
+rules_version = '2';
+// Template: scripts/deploy.sh replaces __OWNER_UID__ (from deploy.env) and writes .build/firestore.rules.
+service cloud.firestore {
+  match /databases/{db}/documents {
+    function owner() { return request.auth != null && request.auth.uid == '__OWNER_UID__'; }
+
+    match /roms/{id} { allow read, write: if owner(); }
+    match /roms/{id}/chunks/{n} {
+      allow read, delete: if owner();
+      allow create, update: if owner()
+        && request.resource.data.data is bytes && request.resource.data.data.size() <= 921600;
+    }
+    match /saves/{id} {
+      allow read, delete: if owner();
+      allow create, update: if owner()
+        && request.resource.data.sram is bytes && request.resource.data.sram.size() <= 131072 + 64;
+    }
+    match /states/{id} {
+      allow read, delete: if owner();
+      allow create, update: if owner()
+        && request.resource.data.state is bytes && request.resource.data.state.size() < 1000000;
+    }
+    match /settings/main { allow read, write: if owner(); }
+  }
+}
