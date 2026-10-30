@@ -9,3 +9,4 @@ web/firebase-config.js
 .build/
 node_modules/
 .agent-artifacts/
+.env.test.local
