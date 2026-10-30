@@ -8,8 +8,6 @@ Your own Game Boy / Game Boy Color player on the web, on your own free Firebase 
 - One owner per site. Nobody else gets in.
 - Runs on the free Firebase Spark plan. No credit card.
 
-<!-- screenshot -->
-
 > **Security, read this first**
 > - Setup creates exactly **one** owner account with a **random password that is shown once**. Put it in your password manager right away.
 > - **Never commit** `deploy.env` or `web/firebase-config.js`. They are in `.gitignore`; keep it that way.
@@ -153,6 +151,7 @@ Some games (for example Pokémon Gold, Silver and Crystal) have a real-time cloc
 
 - ROMs up to 8 MiB (the largest Game Boy size).
 - One save state slot per game.
+- Save states are stored in the cloud only and need a connection; in-game saves also keep a copy on the device.
 - Needs a network connection to sign in and to download a ROM the first time.
 - Free quota: 1 GiB stored, 50,000 reads/day, 20,000 writes/day (Spark Firestore).
 - One owner per site. Want a second player? They deploy their own copy.

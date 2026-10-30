@@ -6,7 +6,7 @@ Guide for coding agents working on gbc-to-go: a single-owner Game Boy / Game Boy
 
 - **One owner account only.** The Firestore rules allow exactly one UID (`OWNER_UID`). Never create extra accounts, never add a second UID.
 - **The password is generated and shown once.** `scripts/create-owner.mjs` prints it a single time. Never write it to a file, commit, issue, log or memory. Never pick or suggest a password yourself.
-- **Never commit** `deploy.env`, `web/firebase-config.js`, `.firebaserc`, or any `*.gb`, `*.gbc`, `*.sav`. Check `git status` before every commit.
+- **Never commit** `deploy.env`, `web/firebase-config.js`, `.firebaserc`, `.env.test.local`, or any `*.gb`, `*.gbc`, `*.sav`. Check `git status` before every commit.
 - **Never deploy with a placeholder `OWNER_UID`** (empty, `abc123`, `your-uid`, ...). `scripts/deploy.sh` refuses an empty or malformed value; a well-formed fake one would still lock the owner out. Use the UID that `create-owner.mjs` wrote.
 - **Never upgrade the project to Blaze**, and never add Cloud Storage or Cloud Functions.
 - **Never commit or upload ROMs** to the repo. ROMs go in through the app's upload button only.
@@ -57,7 +57,7 @@ Prerequisites: Node.js 20+, `npm install` done.
 Run after every deploy of a new instance. All must hold:
 
 - [ ] `https://<project-id>.web.app/` returns 200.
-- [ ] `OWNER_EMAIL=<email> OWNER_PASSWORD=<password> node scripts/verify-rules.mjs` prints only PASS. It signs in as the owner and creates and deletes a throwaway user, so run it **before** disabling sign-ups. Ask the human to run it if you do not have the password. It checks: owner can read/write `settings/main`; a throwaway user is denied on `roms/x`, `saves/x`, `states/x`, `settings/main`; an oversize chunk (921601 bytes) is denied for the owner; the throwaway user is deleted afterwards.
+- [ ] `OWNER_EMAIL=<email> OWNER_PASSWORD=<password> node scripts/verify-rules.mjs` prints only PASS. It also reads `OWNER_EMAIL`/`OWNER_PASSWORD` from a gitignored `.env.test.local` if the env vars are unset. It signs in as the owner and creates and deletes a throwaway user, so run it **before** disabling sign-ups. Ask the human to run it if you do not have the password. It checks: owner can read/write `settings/main`; a throwaway user is denied on `roms/x`, `saves/x`, `states/x`, `settings/main`; an oversize chunk (921601 bytes) is denied for the owner; the throwaway user is deleted afterwards.
 - [ ] Live smoke at phone width and desktop: sign in, upload a ROM the human provides, play, make an in-game save, save a state, reload, both are restored.
 - [ ] A non-owner account sees "This account is not the owner of this site."
 - [ ] `git ls-files` lists no ROM, `.sav`, `deploy.env`, `.firebaserc` or `web/firebase-config.js`.

@@ -15,6 +15,6 @@ export const db = getFirestore(app);
 
 export { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-auth.js';
 export {
-  doc, collection, getDoc, getDocFromServer, getDocs, setDoc, deleteDoc, writeBatch,
+  doc, collection, getDoc, getDocFromServer, getDocs, setDoc, deleteDoc, writeBatch, updateDoc,
   serverTimestamp, Bytes, query, orderBy,
 } from 'https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js';

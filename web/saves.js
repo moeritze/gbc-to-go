@@ -2,17 +2,15 @@ import { db, doc, getDoc, getDocFromServer, setDoc, Bytes } from './firebase.js'
 import { idbGet, idbPut } from './idb.js';
 import { pickNewer } from './saves-logic.js';
 
-export { pickNewer };
-
 export async function loadSram(id, { cloud } = {}) {
   const local = (await idbGet('saves', id)) || null;
-  if (!cloud) return local?.sram ?? null;
-  let remote = null;
+  if (!cloud) return { sram: local?.sram ?? null };
+  let remote = null, offline = false;
   try {
     const s = await getDocFromServer(doc(db, 'saves', id));
     if (s.exists()) remote = { sram: s.data().sram.toUint8Array(), updatedAt: s.data().updatedAt };
-  } catch { /* offline: fall back to local */ }
-  return pickNewer(local, remote)?.sram ?? null;
+  } catch { offline = true; /* fall back to local */ }
+  return { sram: pickNewer(local, remote)?.sram ?? null, offline };
 }
 
 export async function writeSram(id, bytes, { cloud } = {}) {

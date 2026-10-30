@@ -81,7 +81,7 @@ export async function mount(root, ctx) {
   };
 
   try {
-    const [bytes, sram] = await Promise.all([loadRomBytes(rom.id), loadSram(rom.id, { cloud })]);
+    const [bytes, { sram, offline }] = await Promise.all([loadRomBytes(rom.id), loadSram(rom.id, { cloud })]);
     if (gone) return;
     running = await emu.start(bytes, {
       canvas: root.querySelector('canvas'),
@@ -100,7 +100,7 @@ export async function mount(root, ctx) {
     root.querySelector('.console').replaceChildren(p);
     return;
   }
-  setStatus(savedText());
+  setStatus(offline ? "Using this device's save" : savedText());
   document.addEventListener('visibilitychange', onVis);
   if (touch) release = attachTouch(root.querySelector('.gamepad'), running.press);
   Promise.resolve(markPlayed(rom.id)).catch((e) => console.error(e));
@@ -109,6 +109,7 @@ export async function mount(root, ctx) {
     saveBtn.disabled = false;
     hasState(rom.id).then((has) => { loadBtn.disabled = !has; }).catch((e) => console.error(e));
     saveBtn.onclick = async () => {
+      saveBtn.blur(); // keep keyboard focus off the button so arrows/Enter reach the game
       saveBtn.disabled = true;
       try {
         await writeState(rom.id, running.getState());
@@ -122,6 +123,7 @@ export async function mount(root, ctx) {
       }
     };
     loadBtn.onclick = async () => {
+      loadBtn.blur();
       if (!(await ctx.confirmDialog('Load the saved state? Progress since then is lost.', 'Load state')) || gone) return;
       try {
         const bytes = await loadState(rom.id);

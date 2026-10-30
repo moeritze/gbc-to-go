@@ -1,9 +1,7 @@
-import { db, doc, collection, getDoc, getDocs, writeBatch, Bytes } from './firebase.js';
+import { db, doc, collection, getDoc, getDocs, writeBatch, updateDoc, Bytes } from './firebase.js';
 import { parseHeader, splitChunks, joinChunks, sha1Hex } from './rom.js';
 import { idbGet, idbPut, idbDel } from './idb.js';
 import { uploadPlan, sortRoms } from './library-logic.js';
-
-export { uploadPlan };
 
 const ref = (path) => doc(db, ...path);
 // 500 ops per Firestore batch; an 8 MiB ROM is 10 chunks + meta, well under.
@@ -12,7 +10,7 @@ export async function uploadRom(file, onProgress) {
   const { title, cgb } = parseHeader(bytes);
   const id = await sha1Hex(bytes);
   const existing = await getDoc(ref(['roms', id]));
-  if (existing.exists()) return existing.data();
+  if (existing.exists()) return { meta: existing.data(), existed: true };
   const chunks = splitChunks(bytes);
   const meta = { id, title, cgb, size: bytes.length, chunks: chunks.length, uploadedAt: Date.now(), lastPlayedAt: null };
   const batch = writeBatch(db);
@@ -24,7 +22,7 @@ export async function uploadRom(file, onProgress) {
   await batch.commit();
   onProgress?.(1);
   await idbPut('roms', id, bytes);
-  return meta;
+  return { meta, existed: false };
 }
 
 export async function listRoms() {
@@ -43,9 +41,7 @@ export async function loadRomBytes(id) {
 }
 
 export async function markPlayed(id) {
-  const batch = writeBatch(db);
-  batch.update(ref(['roms', id]), { lastPlayedAt: Date.now() });
-  await batch.commit();
+  await updateDoc(ref(['roms', id]), { lastPlayedAt: Date.now() });
 }
 
 export async function deleteRom(id) {

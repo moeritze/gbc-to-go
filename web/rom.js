@@ -1,5 +1,5 @@
 export const CHUNK = 921600;
-const MAX_ROM = 8 * 1024 * 1024;
+export const MAX_ROM = 8 * 1024 * 1024;
 
 export function parseHeader(bytes) {
   const n = bytes.length;
