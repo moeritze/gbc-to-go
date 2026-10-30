@@ -1,0 +1,12 @@
+{
+  "name": "gbc-to-go",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test web/*.test.mjs",
+    "deploy": "scripts/deploy.sh"
+  },
+  "devDependencies": {
+    "firebase": "13.1.0"
+  }
+}

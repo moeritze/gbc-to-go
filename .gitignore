@@ -1,2 +1,11 @@
 .superpowers/
 .remember/
+*.gb
+*.gbc
+*.sav
+.firebaserc
+deploy.env
+web/firebase-config.js
+.build/
+node_modules/
+.agent-artifacts/

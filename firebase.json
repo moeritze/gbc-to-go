@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "web",
+    "ignore": ["**/*.gb", "**/*.gbc", "**/*.sav", "**/*.test.mjs", "**/*.example.js", "**/.*"],
+    "headers": [
+      { "source": "**/*.wasm", "headers": [{ "key": "Content-Type", "value": "application/wasm" }] },
+      { "source": "**/*.@(js|json|html|css|wasm)", "headers": [{ "key": "Cache-Control", "value": "no-cache" }] }
+    ]
+  },
+  "firestore": { "rules": ".build/firestore.rules", "indexes": "firestore.indexes.json" }
+}
