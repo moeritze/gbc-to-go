@@ -21,7 +21,8 @@ export async function start(romBytes, { canvas, sram, sound = true, onSramDirty 
   new Uint8Array(m.HEAP8.buffer, romPtr, size).fill(0).set(romBytes);
   const e = m._emulator_new_simple(romPtr, size, actx.sampleRate, AUDIO_FRAMES, 2);
   if (!e) throw new Error('Invalid ROM');
-  m._emulator_set_default_joypad_callback(e, m._joypad_new());
+  const joypad = m._joypad_new();
+  m._emulator_set_default_joypad_callback(e, joypad);
 
   const withFile = (cb) => {
     const ptr = m._ext_ram_file_data_new(e);
@@ -117,18 +118,24 @@ export async function start(romBytes, { canvas, sram, sound = true, onSramDirty 
   document.addEventListener('visibilitychange', onVis);
 
   raf = requestAnimationFrame(frame);
-  running = {
+  let stopped = false;
+  const self = {
     press, getSram, getState, loadState,
     setSound(on) { soundOn = on; },
     flushDirty() { if (!dirty) return null; dirty = false; return onSramDirty?.(getSram); },
+    // Idempotent: a second call (instance or module stop) must not free WASM memory twice.
     stop() {
+      if (stopped) return;
+      stopped = true;
+      if (running === self) running = null;
       cancelAnimationFrame(raf); clearInterval(timer);
       removeEventListener('keydown', kd); removeEventListener('keyup', ku); removeEventListener('pointerdown', wake);
       removeEventListener('blur', releaseAll); document.removeEventListener('visibilitychange', onVis);
-      m._emulator_delete(e); m._free(romPtr);
+      m._emulator_delete(e); m._joypad_delete(joypad); m._free(romPtr);
     },
   };
-  return running;
+  running = self;
+  return self;
 }
 
 export function stop() {
