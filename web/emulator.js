@@ -1,6 +1,7 @@
 // Minimal binjgb wrapper with save states. Adapted from binjgb docs/simple.js, MIT, Copyright (c) 2016 Ben Smith. See vendor/LICENSE.
 // Needs vendor/binjgb.js (global Binjgb).
-const AUDIO_FRAMES = 4096, LATENCY = 0.1, TICKS_PER_SEC = 4194304, MAX_STEP_SEC = 5 / 60;
+import { nextStart } from './audio-sched.js';
+const AUDIO_FRAMES = 4096, LATENCY = 0.1, MAX_AHEAD = 0.25, TICKS_PER_SEC = 4194304, MAX_STEP_SEC = 5 / 60;
 const EV_FRAME = 1, EV_AUDIO = 2, EV_TICKS = 4;
 const KEYS = {
   ArrowDown: 'down', ArrowUp: 'up', ArrowLeft: 'left', ArrowRight: 'right',
@@ -65,10 +66,9 @@ export async function start(romBytes, { canvas, sram, sound = true, onSramDirty 
   let audioStart = 0, left = 0, last = 0, raf = 0, audioOn = false, soundOn = sound;
 
   const pushAudio = () => {
-    if (!audioOn || !soundOn) return;
-    const now = actx.currentTime;
-    audioStart ||= now + LATENCY;
-    if (audioStart < now) { audioStart = now + LATENCY; return; }
+    if (!audioOn || !soundOn || actx.state !== 'running') return;
+    const start = nextStart(audioStart, actx.currentTime, { latency: LATENCY, maxAhead: MAX_AHEAD });
+    if (start === null) return;
     const b = actx.createBuffer(2, AUDIO_FRAMES, actx.sampleRate);
     const c0 = b.getChannelData(0), c1 = b.getChannelData(1);
     for (let i = 0; i < AUDIO_FRAMES; i++) {
@@ -78,8 +78,8 @@ export async function start(romBytes, { canvas, sram, sound = true, onSramDirty 
     const src = actx.createBufferSource();
     src.buffer = b;
     src.connect(actx.destination);
-    src.start(audioStart);
-    audioStart += AUDIO_FRAMES / actx.sampleRate;
+    src.start(start);
+    audioStart = start + AUDIO_FRAMES / actx.sampleRate;
   };
 
   const frame = (ms) => {
