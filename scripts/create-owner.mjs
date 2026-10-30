@@ -41,14 +41,22 @@ try {
 
 const line = `OWNER_UID=${user.uid}`;
 env = /^OWNER_UID=.*$/m.test(env) ? env.replace(/^OWNER_UID=.*$/m, line) : `${env}${env && !env.endsWith('\n') ? '\n' : ''}${line}\n`;
-writeFileSync(envUrl, env);
+let saved = `Wrote ${line} to deploy.env.`;
+try {
+  writeFileSync(envUrl, env);
+} catch (e) {
+  // The account exists now: never lose the credentials because of a file error.
+  saved = `Could not write deploy.env (${e.message}).\nAdd this line to deploy.env yourself: ${line}`;
+  process.exitCode = 1;
+}
 
 console.log(`
 Owner account created.
   Email:    ${email}
   Password: ${password}
+  UID:      ${user.uid}
 
 Store this in your password manager now. It is not saved anywhere.
 
-Wrote ${line} to deploy.env.`);
-process.exit(0); // the Auth SDK keeps timers alive
+${saved}`);
+process.exit(); // the Auth SDK keeps timers alive; exit with process.exitCode
