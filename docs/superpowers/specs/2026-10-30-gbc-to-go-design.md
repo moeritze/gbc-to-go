@@ -51,7 +51,7 @@ The owner's own hosted instance is the proof of concept and stays private to the
 
 ### Access (single owner)
 - Setup creates exactly one Auth user (email/password).
-- Firestore rules allow read/write only when `request.auth.uid == OWNER_UID`. The UID is substituted into a rules template at deploy (pattern: poke-recomp `rules/firestore.rules` + `scripts/deploy.sh`). Accounts anyone else creates get nothing.
+- Firestore rules allow read/write only when `request.auth.uid == OWNER_UID`. The UID is substituted into a rules template at deploy (pattern: poke-recomp `rules/firestore.rules` + `scripts/deploy.mjs`). Accounts anyone else creates get nothing.
 - Password: the setup step generates a random password and shows it once; never committed. *(Claude's call; owner first suggested a plain-text default with a loud warning. Generated avoids forks going live with a known password.)*
 - App Check (reCAPTCHA v3): optional, documented step. If `appCheckSiteKey` is set in `web/firebase-config.js` the app initialises it. Enabled on the owner's instance, off by default for forks.
 

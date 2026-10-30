@@ -17,4 +17,4 @@ labels: bug
 
 **Console errors** (if any)
 
-Please do not attach ROMs or save files.
+Please do not attach save files. Do not attach or link ROMs or BIOS files; such issues will be deleted.

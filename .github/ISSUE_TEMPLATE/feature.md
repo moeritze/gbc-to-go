@@ -10,3 +10,5 @@ labels: enhancement
 
 **Free plan and single owner**
 Does it still work on the free Firebase Spark plan (no Cloud Storage, no Cloud Functions) and with one owner per site?
+
+Do not attach or link ROMs or BIOS files; such issues will be deleted.

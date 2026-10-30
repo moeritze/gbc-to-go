@@ -15,9 +15,10 @@ Your own Game Boy / Game Boy Color player on the web, on your own free Firebase 
 
 ## Legal note
 
-- Only use ROMs you own and dumped yourself.
-- ROMs stay in your own Firebase project. Nothing is public, nothing is shared.
-- This repo contains no ROMs, and never should. Do not commit `.gb`, `.gbc` or `.sav` files.
+gbc-to-go is a player only. It ships with no games. Use only ROMs you legally own and dumped yourself from your own cartridges. This project does not host, link to, or help find ROMs, and it has no sharing feature. Your files are stored only in your private Firebase project, which only your owner account can read (see [rules/firestore.rules](rules/firestore.rules)). You are responsible for complying with the copyright law that applies to you.
+
+- Do not commit `.gb`, `.gbc` or `.sav` files to the repo.
+- Not affiliated with, endorsed by, or sponsored by Nintendo. Game Boy, Game Boy Color and Pokémon are trademarks of their respective owners; they are used here only to describe compatibility.
 
 ## Why it is free
 
@@ -28,16 +29,19 @@ Your own Game Boy / Game Boy Color player on the web, on your own free Firebase 
 
 ## Setup
 
-You need: a Google account, [Node.js](https://nodejs.org/) 20 or newer, and a copy of this repo (fork or clone).
+**Easiest way:** open this folder with a coding agent (e.g. Claude Code) and say "set this up for me". It follows [AGENTS.md](AGENTS.md) and tells you when to click something.
+
+You need: [Node.js](https://nodejs.org/) 20 or newer, a Google account, and a copy of this repo (fork or clone). Mac, Linux and Windows all work (deploy is plain Node).
 
 ```sh
 git clone https://github.com/<you>/gbc-to-go.git
 cd gbc-to-go
 npm install
-npx -y firebase-tools@latest login
+npx -y firebase-tools@15.34.2 login
 ```
 
-Prefer a coding agent? Point it at [AGENTS.md](AGENTS.md); it has the same steps as CLI commands.
+- `npm install` may print warnings; they are harmless.
+- On Windows, use `copy` instead of `cp` below, with backslashes (e.g. `copy deploy.env.example deploy.env`).
 
 ### 1. Create a Firebase project (Spark)
 
@@ -48,6 +52,7 @@ Prefer a coding agent? Point it at [AGENTS.md](AGENTS.md); it has the same steps
 
 ```sh
 cp deploy.env.example deploy.env
+# Windows: copy deploy.env.example deploy.env
 ```
 
 - In `deploy.env`, set `PROJECT=` to your project ID. Leave `OWNER_UID=` empty; step 5 fills it.
@@ -59,6 +64,7 @@ cp deploy.env.example deploy.env
 
 ```sh
 cp web/firebase-config.example.js web/firebase-config.js
+# Windows: copy web\firebase-config.example.js web\firebase-config.js
 ```
 
 - Paste `apiKey`, `authDomain`, `projectId` and `appId` into `firebaseConfig` in `web/firebase-config.js`. The other values are not needed. Leave `appCheckSiteKey` empty for now.
@@ -85,6 +91,7 @@ node scripts/create-owner.mjs you@example.com
 
 - It prints your email and a random password **once**. Store it in your password manager now. It is not saved anywhere.
 - It writes your account's ID into `deploy.env` as `OWNER_UID=...`.
+- Lost the password? Firebase console > **Authentication > Users** > **⋮** > **Reset password** (see [AGENTS.md](AGENTS.md)).
 
 ### 6. Deploy
 
@@ -94,7 +101,8 @@ npm run deploy
 
 - Deploys the site and the owner-only database rules.
 - Your site is at `https://<project-id>.web.app/` (the project's default Hosting site; no extra setup). Sign in with the email and password from step 5.
-- If deploy says the site is not found, run `npx -y firebase-tools@latest hosting:sites:list` and check the site ID.
+- `npm run deploy -- --dry-run` checks your config and prints what it would deploy, without deploying.
+- If deploy says the site is not found, run `npx -y firebase-tools@15.34.2 hosting:sites:create <project-id> --project <project-id>` and deploy again.
 
 ### 7. Optional: App Check
 
@@ -172,4 +180,8 @@ Multi-user sites, sharing and public libraries are out of scope on purpose. See 
 
 ## License
 
-MIT, see [LICENSE](LICENSE). The bundled emulator core [binjgb](https://github.com/binji/binjgb) keeps its own license in `web/vendor/`.
+MIT, see [LICENSE](LICENSE).
+
+- The bundled emulator core [binjgb](https://github.com/binji/binjgb) (MIT, Ben Smith) keeps its own license in `web/vendor/LICENSE`, served at `/vendor/LICENSE`.
+- `web/emulator.js` is adapted from binjgb `docs/simple.js` (MIT, Ben Smith).
+- Fonts are loaded from Google Fonts (SIL OFL 1.1): Atkinson Hyperlegible and Silkscreen. Google sees visitors' IP addresses; self-host them if that matters to you.

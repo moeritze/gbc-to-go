@@ -1,5 +1,5 @@
 rules_version = '2';
-// Template: scripts/deploy.sh replaces __OWNER_UID__ (from deploy.env) and writes .build/firestore.rules.
+// Template: scripts/deploy.mjs replaces __OWNER_UID__ (from deploy.env) and writes .build/firestore.rules.
 service cloud.firestore {
   match /databases/{db}/documents {
     function owner() { return request.auth != null && request.auth.uid == '__OWNER_UID__'; }

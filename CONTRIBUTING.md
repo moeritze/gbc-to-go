@@ -34,6 +34,7 @@ npm test
 - One owner account per site. The rules allow exactly one UID.
 - No sign-up flow, sharing, public libraries or multi-user features.
 - Never commit ROMs, saves, `deploy.env` or `web/firebase-config.js`.
+- Do not attach or link ROMs or BIOS files in issues or pull requests; such issues will be deleted.
 
 ## Code style
 
