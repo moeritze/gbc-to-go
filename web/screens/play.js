@@ -41,7 +41,7 @@ export async function mount(root, ctx) {
   const cloud = s.cloudSaves;
   root.querySelector('.back').onclick = () => ctx.show('library');
 
-  let gone = false, running = null, release = () => {};
+  let gone = false, running = null, release = () => {}, sram = null, offline = false;
 
   const savedText = () => (cloud && !navigator.onLine ? 'Offline, saved on this device' : 'Saved ✓');
   // Writes the newest SRAM. Called with bytes already read, so it also works after the emulator stopped.
@@ -81,7 +81,8 @@ export async function mount(root, ctx) {
   };
 
   try {
-    const [bytes, { sram, offline }] = await Promise.all([loadRomBytes(rom.id), loadSram(rom.id, { cloud })]);
+    const [bytes, saved] = await Promise.all([loadRomBytes(rom.id), loadSram(rom.id, { cloud })]);
+    ({ sram, offline } = saved);
     if (gone) return;
     running = await emu.start(bytes, {
       canvas: root.querySelector('canvas'),
