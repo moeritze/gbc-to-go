@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1b1a24">
+  <title>gbc-to-go</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Silkscreen&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script src="vendor/binjgb.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main id="root" aria-live="polite"><p class="boot">Loading…</p></main>
+  <p id="toast" class="toast" role="status" hidden></p>
+  <dialog id="confirm">
+    <form method="dialog">
+      <p id="confirm-msg"></p>
+      <div class="dialog-actions">
+        <button value="cancel" class="ghost">Cancel</button>
+        <button value="ok" id="confirm-ok" class="primary">OK</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
