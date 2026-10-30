@@ -1,5 +1,5 @@
-// Minimal binjgb wrapper with save states, adapted from binjgb docs/simple.js (MIT). Needs vendor/binjgb.js (global Binjgb).
-// Adapted from binjgb docs/simple.js, MIT, Copyright (c) 2016 Ben Smith. See vendor/LICENSE.
+// Minimal binjgb wrapper with save states. Adapted from binjgb docs/simple.js, MIT, Copyright (c) 2016 Ben Smith. See vendor/LICENSE.
+// Needs vendor/binjgb.js (global Binjgb).
 const AUDIO_FRAMES = 4096, LATENCY = 0.1, TICKS_PER_SEC = 4194304, MAX_STEP_SEC = 5 / 60;
 const EV_FRAME = 1, EV_AUDIO = 2, EV_TICKS = 4;
 const KEYS = {
