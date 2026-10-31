@@ -66,3 +66,8 @@ onAuthStateChanged(auth, async (user) => {
   }
   show('library');
 });
+
+// iOS Safari can still pinch- or double-tap-zoom despite touch-action; block both while playing.
+for (const type of ['gesturestart', 'dblclick']) {
+  document.addEventListener(type, (ev) => { if (document.body.dataset.screen === 'play') ev.preventDefault(); }, { passive: false });
+}
