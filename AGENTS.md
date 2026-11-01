@@ -66,6 +66,10 @@ Prerequisites: Node.js 20+, `npm install` done.
 11. **Optional: disable new sign-ups.** **Ask the human**, after the rules check passed: Authentication > Settings > User actions > untick "Enable create (sign-up)".
 12. **Remind the human:** `deploy.env` and `web/firebase-config.js` stay local. Never commit or share them.
 
+## Updating an instance
+
+When the human asks to update their site: `git fetch --tags origin`, `git checkout $(git describe --tags --abbrev=0 origin/main)` (for a fork, use `upstream` and `upstream/main` instead), `npm install`, read the new CHANGELOG.md entries for manual steps, then `npm run deploy`. Deploy only release tags, never `main`. ROMs, saves and settings in Firestore are not affected.
+
 ## Verification checklist
 
 Run after every deploy of a new instance. All must hold:

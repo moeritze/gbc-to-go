@@ -6,6 +6,7 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ### Added
 - Settings shows how to add the site to the phone's home screen (hidden when already opened from there).
+- README and AGENTS.md: how to update an existing instance to the newest release.
 
 ## [1.0.1] - 2026-11-01
 

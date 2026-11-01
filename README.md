@@ -50,7 +50,7 @@ npm install
 npx -y firebase-tools@15.34.2 login
 ```
 
-- The `git checkout` line puts you on the latest tagged release instead of in-progress work on `main`. See [CHANGELOG.md](CHANGELOG.md) for what changed. To update later: `git fetch --tags`, check out the new tag, redeploy.
+- The `git checkout` line puts you on the latest tagged release instead of in-progress work on `main`. See [CHANGELOG.md](CHANGELOG.md) for what changed. To update later, see [Updating your instance](#updating-your-instance).
 - `npm install` may print warnings; they are harmless.
 - On Windows, use `copy` instead of `cp` below, with backslashes (e.g. `copy deploy.env.example deploy.env`).
 
@@ -131,6 +131,22 @@ Other accounts already get nothing, but you can stop them being created at all.
 - Do this last, after everything works (the rules check in [AGENTS.md](AGENTS.md) needs sign-ups on).
 - **Authentication > Settings > User actions**: untick **Enable create (sign-up)** and save.
 - To make a new owner account later, tick it again first.
+
+## Updating your instance
+
+Run these from your clone. Your `deploy.env` and `web/firebase-config.js` stay as they are (they are gitignored).
+
+```sh
+git fetch --tags origin
+git checkout $(git describe --tags --abbrev=0 origin/main)   # newest release
+npm install
+npm run deploy
+```
+
+- Check [CHANGELOG.md](CHANGELOG.md) first for anything that needs a manual step.
+- Your ROMs, saves and settings live in Firestore and are not touched.
+- Cloned from your own fork? Its tags may lag behind. Add this repo once with `git remote add upstream https://github.com/moeritze/gbc-to-go.git`, then use `upstream` instead of `origin` in the first two lines.
+- Want to go back? Check out the older tag, then `npm install` and `npm run deploy` again.
 
 ## Your ROMs
 
