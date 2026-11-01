@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag matches package.json
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg=$(node -p "require('./package.json').version")
+          if [ "$tag" != "$pkg" ]; then echo "Tag $tag != package.json version $pkg"; exit 1; fi
+      - name: Extract release notes
+        run: |
+          awk -v v="$(node -p "require('./package.json').version")" '
+            /^\[[^]]+\]: / { exit }
+            /^## \[/ { if (on) exit; on = index($0, "## [" v "]") == 1; next }
+            on' CHANGELOG.md > notes.md
+          grep -q '[^[:space:]]' notes.md || { echo "CHANGELOG.md has no entry for this version"; exit 1; }
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file notes.md
