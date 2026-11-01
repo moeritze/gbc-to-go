@@ -4,6 +4,9 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+### Added
+- Settings shows how to add the site to the phone's home screen (hidden when already opened from there).
+
 ## [1.0.1] - 2026-11-01
 
 No app changes. Docs and project maintenance only.
