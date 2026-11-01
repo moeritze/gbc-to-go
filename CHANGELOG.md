@@ -4,6 +4,8 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-11-01
+
 ### Added
 - Settings shows the app version.
 
@@ -46,7 +48,8 @@ First release.
 - Emulator stop is safe to call twice.
 - Offline flag scope on the play screen.
 
-[Unreleased]: https://github.com/moeritze/gbc-to-go/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/moeritze/gbc-to-go/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/moeritze/gbc-to-go/compare/v1.0.2...v1.1.0
 [1.0.2]: https://github.com/moeritze/gbc-to-go/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/moeritze/gbc-to-go/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/moeritze/gbc-to-go/releases/tag/v1.0.0
