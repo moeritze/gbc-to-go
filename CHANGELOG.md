@@ -4,6 +4,17 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-01
+
+No app changes. Docs and project maintenance only.
+
+### Added
+- Architecture diagram in the README.
+- Security policy (`SECURITY.md`) with private vulnerability reporting, and a pull request template.
+
+### Changed
+- CI uses `actions/checkout` v7 and `actions/setup-node` v7.
+
 ## [1.0.0] - 2026-11-01
 
 First release.
@@ -23,5 +34,6 @@ First release.
 - Emulator stop is safe to call twice.
 - Offline flag scope on the play screen.
 
-[Unreleased]: https://github.com/moeritze/gbc-to-go/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/moeritze/gbc-to-go/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/moeritze/gbc-to-go/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/moeritze/gbc-to-go/releases/tag/v1.0.0
