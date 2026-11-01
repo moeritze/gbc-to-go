@@ -146,7 +146,7 @@ npm run deploy
 - Check [CHANGELOG.md](CHANGELOG.md) first for anything that needs a manual step.
 - Your ROMs, saves and settings live in Firestore and are not touched.
 - Cloned from your own fork? Its tags may lag behind. Add this repo once with `git remote add upstream https://github.com/moeritze/gbc-to-go.git`, then use `upstream` instead of `origin` in the first two lines.
-- Want to go back? Check out the older tag and `npm run deploy` again.
+- Want to go back? Check out the older tag, then `npm install` and `npm run deploy` again.
 
 ## Your ROMs
 

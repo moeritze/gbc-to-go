@@ -68,7 +68,7 @@ Prerequisites: Node.js 20+, `npm install` done.
 
 ## Updating an instance
 
-When the human asks to update their site: `git fetch --tags origin` (or `upstream` for a fork), `git checkout $(git describe --tags --abbrev=0 origin/main)` with the same remote, `npm install`, read the new CHANGELOG.md entries for manual steps, then `npm run deploy`. Deploy only release tags, never `main`. ROMs, saves and settings in Firestore are not affected.
+When the human asks to update their site: `git fetch --tags origin`, `git checkout $(git describe --tags --abbrev=0 origin/main)` (for a fork, use `upstream` and `upstream/main` instead), `npm install`, read the new CHANGELOG.md entries for manual steps, then `npm run deploy`. Deploy only release tags, never `main`. ROMs, saves and settings in Firestore are not affected.
 
 ## Verification checklist
 
