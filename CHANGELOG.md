@@ -4,6 +4,8 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-11-01
+
 ### Added
 - Settings shows how to add the site to the phone's home screen (hidden when already opened from there).
 - README and AGENTS.md: how to update an existing instance to the newest release.
@@ -38,6 +40,7 @@ First release.
 - Emulator stop is safe to call twice.
 - Offline flag scope on the play screen.
 
-[Unreleased]: https://github.com/moeritze/gbc-to-go/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/moeritze/gbc-to-go/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/moeritze/gbc-to-go/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/moeritze/gbc-to-go/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/moeritze/gbc-to-go/releases/tag/v1.0.0
