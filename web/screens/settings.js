@@ -25,8 +25,10 @@ export function mount(root, ctx) {
       <section class="setting install" hidden>
         <span><span class="setting-name">Add to Home Screen</span>
         <span class="muted">Opens full screen like an app, without browser bars.</span>
-        <span class="muted"><b>iPhone (Safari):</b> tap Share, then Add to Home Screen.</span>
-        <span class="muted"><b>Android (Chrome):</b> tap ⋮, then Add to Home screen.</span></span>
+        <ul class="install-steps muted">
+          <li><b>iPhone (Safari):</b> tap Share (square with arrow), then Add to Home Screen.</li>
+          <li><b>Android (Chrome):</b> tap the menu (three dots), then Add to Home Screen.</li>
+        </ul></span>
       </section>
       <button class="ghost signout" type="button">Sign out</button>
     </form>`;
