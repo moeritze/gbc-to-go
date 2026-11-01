@@ -10,4 +10,4 @@
 - [ ] Still single-owner; rules still deny everyone else.
 - [ ] No ROMs, saves, `deploy.env` or `web/firebase-config.js` in the diff.
 - [ ] Behavior change: entry added under `## [Unreleased]` in `CHANGELOG.md`.
-- [ ] README / AGENTS.md updated if setup changed.
+- [ ] README / AGENTS.md updated if setup or behavior changed.
