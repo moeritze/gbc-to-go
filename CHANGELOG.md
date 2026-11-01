@@ -7,6 +7,9 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 ### Added
 - Settings shows the app version.
 
+### Changed
+- Releases are automatic: merging a version bump to `main` tags it and publishes the GitHub Release. No manual tag push.
+
 ## [1.0.2] - 2026-11-01
 
 ### Added

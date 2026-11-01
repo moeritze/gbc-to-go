@@ -1,30 +1,45 @@
 name: Release
 
+# Releases itself: when a push to main carries a package.json version that has no tag yet,
+# tag that commit and publish a GitHub Release from the matching CHANGELOG.md section.
 on:
   push:
-    tags: ['v*']
+    branches: [main]
 
 permissions:
   contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - name: Tag matches package.json
+      - name: Check for new version
+        id: version
         run: |
-          tag="${GITHUB_REF_NAME#v}"
-          pkg=$(node -p "require('./package.json').version")
-          if [ "$tag" != "$pkg" ]; then echo "Tag $tag != package.json version $pkg"; exit 1; fi
+          v=$(node -p "require('./package.json').version")
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/v$v" >/dev/null; then
+            echo "v$v already tagged, nothing to release"
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
+          fi
       - name: Extract release notes
+        if: steps.version.outputs.new == 'true'
         run: |
-          awk -v v="$(node -p "require('./package.json').version")" '
+          awk -v v="${{ steps.version.outputs.version }}" '
             /^\[[^]]+\]: / { exit }
             /^## \[/ { if (on) exit; on = index($0, "## [" v "]") == 1; next }
             on' CHANGELOG.md > notes.md
           grep -q '[^[:space:]]' notes.md || { echo "CHANGELOG.md has no entry for this version"; exit 1; }
-      - name: Create GitHub Release
+      - name: Tag and create GitHub Release
+        if: steps.version.outputs.new == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file notes.md
+          TAG: v${{ steps.version.outputs.version }}
+        run: gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --notes-file notes.md
