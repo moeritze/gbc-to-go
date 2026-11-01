@@ -4,6 +4,9 @@ All notable changes to this project are documented here. Format: [Keep a Changel
 
 ## [Unreleased]
 
+### Added
+- Settings shows the app version.
+
 ## [1.0.2] - 2026-11-01
 
 ### Added

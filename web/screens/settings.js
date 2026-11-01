@@ -1,5 +1,6 @@
 import { auth, signOut } from '../firebase.js';
 import { saveSettings } from '../settings.js';
+import { VERSION } from '../version.js';
 
 const TOGGLES = [
   ['cloudSaves', 'Cloud in-game saves', 'Off: saves stay on this device only.'],
@@ -31,6 +32,7 @@ export function mount(root, ctx) {
         </ul></span>
       </section>
       <button class="ghost signout" type="button">Sign out</button>
+      <p class="version muted">gbc-to-go v${VERSION}</p>
     </form>`;
   const form = root.querySelector('form');
   // Hide once launched from the home screen (navigator.standalone is iOS Safari).
