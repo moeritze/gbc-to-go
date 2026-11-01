@@ -86,4 +86,5 @@ Run after every deploy of a new instance. All must hold:
 - **Spark only:** Hosting, Auth, Firestore `(default)`. ROM chunks stay at most 900 KiB (921600 bytes).
 - **No `window.alert/confirm/prompt`**: use the in-app dialog.
 - **Single owner:** no sign-up flow, no sharing, no multi-user features.
+- **Changelog:** for any behavior change, add an entry under `## [Unreleased]` in `CHANGELOG.md`. Humans cut releases (see CONTRIBUTING.md); never create tags.
 - Copy in English. MIT license.

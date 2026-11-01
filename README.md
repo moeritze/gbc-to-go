@@ -36,10 +36,12 @@ You need: [Node.js](https://nodejs.org/) 20 or newer, a Google account, and a co
 ```sh
 git clone https://github.com/<you>/gbc-to-go.git
 cd gbc-to-go
+git checkout $(git describe --tags --abbrev=0)   # latest release
 npm install
 npx -y firebase-tools@15.34.2 login
 ```
 
+- The `git checkout` line puts you on the latest tagged release instead of in-progress work on `main`. See [CHANGELOG.md](CHANGELOG.md) for what changed. To update later: `git fetch --tags`, check out the new tag, redeploy.
 - `npm install` may print warnings; they are harmless.
 - On Windows, use `copy` instead of `cp` below, with backslashes (e.g. `copy deploy.env.example deploy.env`).
 
