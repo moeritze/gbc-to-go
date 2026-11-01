@@ -27,6 +27,15 @@ gbc-to-go is a player only. It ships with no games. Use only ROMs you legally ow
 - Each device caches the ROM after the first download, so chunks are read once per device.
 - Spark Firestore free quota: 1 GiB stored, 50,000 reads/day, 20,000 writes/day. That is plenty for one player.
 
+## How it works
+
+![gbc-to-go architecture: the browser loads the site from Firebase Hosting, signs in with Auth, and reads and writes Firestore behind owner-only rules; each device caches ROMs and saves in IndexedDB](docs/architecture.svg)
+
+- The site is static files on Hosting. The emulator runs fully in your browser.
+- ROMs, saves, states and settings live in Firestore. The rules let only your owner UID read or write.
+- Each device caches ROMs and saves in IndexedDB, so a ROM is downloaded once per device.
+- No Cloud Storage, no Cloud Functions, no server of your own.
+
 ## Setup
 
 **Easiest way:** open this folder with a coding agent (e.g. Claude Code) and say "set this up for me". It follows [AGENTS.md](AGENTS.md) and tells you when to click something.

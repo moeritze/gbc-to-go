@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1220 800" width="1220" height="800" role="img" aria-label="gbc-to-go architecture: the browser loads the static site from Firebase Hosting, signs in with Firebase Auth, and reads and writes ROMs, saves, states and settings in Firestore, where rules allow only the owner UID. Each device caches ROMs and saves in IndexedDB. Two local scripts create the owner account and deploy the site and rules." font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#3d4436"/>
+    </marker>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 19 H13"/></symbol>
+    <symbol id="i-laptop" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19 H22"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18 H17.5 a3.5 3.5 0 0 0 0.5 -7 a5.5 5.5 0 0 0 -10.6 -1.2 A4 4 0 0 0 7 18 Z"/></symbol>
+    <symbol id="i-browser" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9 H21 M6 6.5 H6.1 M8.5 6.5 H8.6"/></symbol>
+    <symbol id="i-pad" viewBox="0 0 24 24"><rect x="2" y="6.5" width="20" height="11" rx="5.5"/><path d="M7 10 V14 M5 12 H9"/><circle cx="15.5" cy="11" r="1"/><circle cx="18" cy="13.5" r="1"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6 V18 c0 1.7 3.1 3 7 3 s7 -1.3 7 -3 V6"/><path d="M5 12 c0 1.7 3.1 3 7 3 s7 -1.3 7 -3"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12 H21"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12 H21 M18 12 V15 M21 12 V14.5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 16.5 16.5 19.5 12 21 C7.5 19.5 4 16.5 4 12 V6 Z"/><path d="M8.5 12 L11 14.5 L15.5 10"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11 V8 a4 4 0 0 1 8 0 V11"/></symbol>
+    <symbol id="i-term" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 10 L10 12.5 L7 15 M12 15 H16"/></symbol>
+  </defs>
+
+  <!-- canvas -->
+  <rect width="1220" height="800" rx="16" fill="#f7f8f2"/>
+  <text x="24" y="52" font-size="24" font-weight="700" fill="#1f2419">gbc-to-go architecture</text>
+  <text x="24" y="78" font-size="14" fill="#5f6655">Static site, emulator in the browser, one owner-locked Firestore database. Firebase Spark plan, no server.</text>
+
+  <!-- ===== Group A: device ===== -->
+  <rect x="24" y="110" width="376" height="400" rx="12" fill="#edf2e3" stroke="#b9c79f"/>
+  <text x="48" y="141" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4f6b2a">YOUR PHONE / LAPTOP</text>
+  <use href="#i-phone" x="336" y="124" width="22" height="22" fill="none" stroke="#4f6b2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <use href="#i-laptop" x="360" y="124" width="24" height="24" fill="none" stroke="#4f6b2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g>
+    <rect x="72" y="160" width="264" height="80" rx="10" fill="#ffffff" stroke="#c9d3b5"/>
+    <use href="#i-browser" x="88" y="188" width="26" height="26" fill="none" stroke="#4f6b2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="128" y="194" font-size="15" font-weight="700" fill="#1f2419">App</text>
+    <text x="128" y="214" font-size="12" fill="#5f6655">web/ · plain ES modules, no build</text>
+  </g>
+  <g>
+    <rect x="72" y="280" width="264" height="80" rx="10" fill="#ffffff" stroke="#c9d3b5"/>
+    <use href="#i-pad" x="88" y="307" width="26" height="26" fill="none" stroke="#4f6b2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="128" y="314" font-size="15" font-weight="700" fill="#1f2419">Emulator</text>
+    <text x="128" y="334" font-size="12" fill="#5f6655">binjgb.wasm · runs locally</text>
+  </g>
+  <g>
+    <rect x="72" y="400" width="264" height="80" rx="10" fill="#ffffff" stroke="#c9d3b5"/>
+    <use href="#i-db" x="88" y="427" width="26" height="26" fill="none" stroke="#4f6b2a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="128" y="434" font-size="15" font-weight="700" fill="#1f2419">IndexedDB cache</text>
+    <text x="128" y="454" font-size="12" fill="#5f6655">ROMs + saves on this device</text>
+  </g>
+
+  <!-- App -> Emulator -->
+  <path d="M204 240 V278" stroke="#3d4436" stroke-width="1.6" fill="none" marker-end="url(#a)"/>
+  <text x="212" y="264" font-size="11" fill="#5f6655">ROM, SRAM, state</text>
+  <!-- App <-> cache -->
+  <path d="M72 220 H52 V440 H70" stroke="#3d4436" stroke-width="1.6" fill="none" marker-end="url(#a)" marker-start="url(#a)"/>
+  <text x="44" y="330" font-size="11" fill="#5f6655" text-anchor="middle" transform="rotate(-90 44 330)">ROM downloaded once per device</text>
+
+  <!-- ===== Group B: Firebase project ===== -->
+  <rect x="600" y="110" width="576" height="490" rx="12" fill="#fdf4e6" stroke="#ebc78a"/>
+  <text x="624" y="141" font-size="11" font-weight="700" letter-spacing="1.2" fill="#a8650c">YOUR FIREBASE PROJECT · SPARK PLAN (FREE)</text>
+  <use href="#i-cloud" x="1140" y="122" width="26" height="26" fill="none" stroke="#a8650c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <g>
+    <rect x="624" y="160" width="260" height="80" rx="10" fill="#ffffff" stroke="#efd3a3"/>
+    <use href="#i-globe" x="640" y="187" width="26" height="26" fill="none" stroke="#a8650c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="680" y="194" font-size="15" font-weight="700" fill="#1f2419">Hosting</text>
+    <text x="680" y="214" font-size="12" fill="#5f6655">&lt;project-id&gt;.web.app</text>
+  </g>
+  <g>
+    <text x="916" y="186" font-size="12" font-weight="700" fill="#5f6655">Spark free quota</text>
+    <text x="916" y="206" font-size="12" fill="#5f6655">1 GiB stored</text>
+    <text x="916" y="224" font-size="12" fill="#5f6655">50k reads · 20k writes per day</text>
+  </g>
+  <g>
+    <rect x="624" y="280" width="260" height="80" rx="10" fill="#ffffff" stroke="#efd3a3"/>
+    <use href="#i-key" x="640" y="307" width="26" height="26" fill="none" stroke="#a8650c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="680" y="314" font-size="15" font-weight="700" fill="#1f2419">Auth</text>
+    <text x="680" y="334" font-size="12" fill="#5f6655">Email/Password · one owner</text>
+  </g>
+  <g>
+    <rect x="900" y="280" width="252" height="80" rx="10" fill="#ffffff" stroke="#d9b77c" stroke-dasharray="5 4"/>
+    <use href="#i-shield" x="916" y="307" width="26" height="26" fill="none" stroke="#a8650c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="956" y="314" font-size="15" font-weight="700" fill="#1f2419">App Check</text>
+    <text x="956" y="334" font-size="12" fill="#5f6655">optional · reCAPTCHA v3</text>
+  </g>
+
+  <!-- Firestore -->
+  <rect x="624" y="392" width="528" height="192" rx="10" fill="#ffffff" stroke="#e3b66b"/>
+  <use href="#i-db" x="640" y="402" width="24" height="24" fill="none" stroke="#a8650c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="674" y="420" font-size="15" font-weight="700" fill="#1f2419">Firestore <tspan font-weight="400" fill="#5f6655">(default)</tspan></text>
+
+  <rect x="644" y="440" width="488" height="40" rx="6" fill="#fbe3b8" stroke="#d9a24a"/>
+  <use href="#i-lock" x="656" y="449" width="22" height="22" fill="none" stroke="#8a520a" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="688" y="465" font-size="12.5" fill="#5a3606"><tspan font-weight="700">Rules:</tspan> only <tspan font-family="ui-monospace, Menlo, Consolas, monospace">auth.uid == OWNER_UID</tspan>, all else denied</text>
+
+  <g font-size="11">
+    <rect x="644" y="496" width="113" height="72" rx="6" fill="#fdf8ef" stroke="#efd3a3"/>
+    <text x="654" y="522" font-size="12" font-weight="700" fill="#1f2419" font-family="ui-monospace, Menlo, Consolas, monospace">roms/{id}</text>
+    <text x="654" y="542" fill="#5f6655">+ chunks ≤ 900 KiB</text>
+
+    <rect x="769" y="496" width="113" height="72" rx="6" fill="#fdf8ef" stroke="#efd3a3"/>
+    <text x="779" y="522" font-size="12" font-weight="700" fill="#1f2419" font-family="ui-monospace, Menlo, Consolas, monospace">saves/{id}</text>
+    <text x="779" y="542" fill="#5f6655">in-game SRAM</text>
+
+    <rect x="894" y="496" width="113" height="72" rx="6" fill="#fdf8ef" stroke="#efd3a3"/>
+    <text x="904" y="522" font-size="12" font-weight="700" fill="#1f2419" font-family="ui-monospace, Menlo, Consolas, monospace">states/{id}</text>
+    <text x="904" y="542" fill="#5f6655">save states &lt; 1 MB</text>
+
+    <rect x="1019" y="496" width="113" height="72" rx="6" fill="#fdf8ef" stroke="#efd3a3"/>
+    <text x="1029" y="522" font-size="12" font-weight="700" fill="#1f2419" font-family="ui-monospace, Menlo, Consolas, monospace">settings/main</text>
+    <text x="1029" y="542" fill="#5f6655">controls, prefs</text>
+  </g>
+
+  <!-- App Check -> rules -->
+  <path d="M1026 360 V438" stroke="#a8650c" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+  <text x="1034" y="404" font-size="11" fill="#5f6655">verifies requests</text>
+
+  <!-- ===== Cross-group edges ===== -->
+  <!-- Hosting -> App -->
+  <path d="M624 180 H338" stroke="#3d4436" stroke-width="1.6" fill="none" marker-end="url(#a)"/>
+  <text x="480" y="172" font-size="12" fill="#5f6655" text-anchor="middle">serves HTML, JS, wasm</text>
+  <!-- App -> Auth -->
+  <path d="M336 200 H540 V320 H622" stroke="#3d4436" stroke-width="1.6" fill="none" marker-end="url(#a)"/>
+  <text x="582" y="312" font-size="12" fill="#5f6655" text-anchor="middle">sign in</text>
+  <!-- App <-> Firestore -->
+  <path d="M338 220 H470 V460 H642" stroke="#4f6b2a" stroke-width="2.2" fill="none" marker-end="url(#a)" marker-start="url(#a)"/>
+  <text x="547" y="452" font-size="12" font-weight="700" fill="#4f6b2a" text-anchor="middle">read / write</text>
+  <text x="547" y="476" font-size="11" fill="#5f6655" text-anchor="middle">ROMs, saves, states</text>
+
+  <!-- ===== Group C: setup ===== -->
+  <rect x="24" y="590" width="376" height="156" rx="12" fill="#eceff4" stroke="#c3cad6"/>
+  <text x="48" y="619" font-size="11" font-weight="700" letter-spacing="1.2" fill="#4a5a78">YOUR COMPUTER · ONE-TIME SETUP</text>
+
+  <rect x="48" y="632" width="328" height="40" rx="8" fill="#ffffff" stroke="#cfd5df"/>
+  <use href="#i-term" x="60" y="641" width="22" height="22" fill="none" stroke="#4a5a78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="94" y="657" font-size="13" fill="#1f2419"><tspan font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">deploy.mjs</tspan><tspan fill="#5f6655"> · reads deploy.env</tspan></text>
+
+  <rect x="48" y="688" width="328" height="40" rx="8" fill="#ffffff" stroke="#cfd5df"/>
+  <use href="#i-term" x="60" y="697" width="22" height="22" fill="none" stroke="#4a5a78" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="94" y="713" font-size="13" fill="#1f2419"><tspan font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">create-owner.mjs</tspan><tspan fill="#5f6655"> · password shown once</tspan></text>
+
+  <!-- deploy -> project -->
+  <path d="M376 652 H660 V602" stroke="#4a5a78" stroke-width="1.6" fill="none" marker-end="url(#a)"/>
+  <text x="518" y="644" font-size="12" fill="#5f6655" text-anchor="middle">deploys web/ + rules with OWNER_UID</text>
+  <!-- create-owner -> Auth -->
+  <path d="M376 708 H1196 V260 H760 V278" stroke="#4a5a78" stroke-width="1.6" fill="none" marker-end="url(#a)"/>
+  <text x="790" y="700" font-size="12" fill="#5f6655" text-anchor="middle">creates the one owner account</text>
+
+  <text x="24" y="780" font-size="12" fill="#5f6655">No Cloud Storage · no Cloud Functions · no server of your own</text>
+</svg>
