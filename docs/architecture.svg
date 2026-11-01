@@ -94,7 +94,7 @@
   <g font-size="11">
     <rect x="644" y="496" width="113" height="72" rx="6" fill="#fdf8ef" stroke="#efd3a3"/>
     <text x="654" y="522" font-size="12" font-weight="700" fill="#1f2419" font-family="ui-monospace, Menlo, Consolas, monospace">roms/{id}</text>
-    <text x="654" y="542" fill="#5f6655">+ chunks ≤ 900 KiB</text>
+    <text x="654" y="542" fill="#5f6655">chunks ≤ 900 KiB</text>
 
     <rect x="769" y="496" width="113" height="72" rx="6" fill="#fdf8ef" stroke="#efd3a3"/>
     <text x="779" y="522" font-size="12" font-weight="700" fill="#1f2419" font-family="ui-monospace, Menlo, Consolas, monospace">saves/{id}</text>
@@ -102,7 +102,7 @@
 
     <rect x="894" y="496" width="113" height="72" rx="6" fill="#fdf8ef" stroke="#efd3a3"/>
     <text x="904" y="522" font-size="12" font-weight="700" fill="#1f2419" font-family="ui-monospace, Menlo, Consolas, monospace">states/{id}</text>
-    <text x="904" y="542" fill="#5f6655">save states &lt; 1 MB</text>
+    <text x="904" y="542" fill="#5f6655">states &lt; 1 MB</text>
 
     <rect x="1019" y="496" width="113" height="72" rx="6" fill="#fdf8ef" stroke="#efd3a3"/>
     <text x="1029" y="522" font-size="12" font-weight="700" fill="#1f2419" font-family="ui-monospace, Menlo, Consolas, monospace">settings/main</text>
@@ -110,8 +110,8 @@
   </g>
 
   <!-- App Check -> rules -->
-  <path d="M1026 360 V438" stroke="#a8650c" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
-  <text x="1034" y="404" font-size="11" fill="#5f6655">verifies requests</text>
+  <path d="M1026 360 V390" stroke="#a8650c" stroke-width="1.6" stroke-dasharray="5 4" fill="none" marker-end="url(#a)"/>
+  <text x="1034" y="380" font-size="11" fill="#5f6655">verifies app (when enforced)</text>
 
   <!-- ===== Cross-group edges ===== -->
   <!-- Hosting -> App -->
@@ -123,7 +123,7 @@
   <!-- App <-> Firestore -->
   <path d="M338 220 H470 V460 H642" stroke="#4f6b2a" stroke-width="2.2" fill="none" marker-end="url(#a)" marker-start="url(#a)"/>
   <text x="547" y="452" font-size="12" font-weight="700" fill="#4f6b2a" text-anchor="middle">read / write</text>
-  <text x="547" y="476" font-size="11" fill="#5f6655" text-anchor="middle">ROMs, saves, states</text>
+  <text x="547" y="476" font-size="11" fill="#5f6655" text-anchor="middle">ROMs, saves, states, settings</text>
 
   <!-- ===== Group C: setup ===== -->
   <rect x="24" y="590" width="376" height="156" rx="12" fill="#eceff4" stroke="#c3cad6"/>
