@@ -22,9 +22,19 @@ export function mount(root, ctx) {
         <legend class="setting-name">Touch pad</legend>
         <span class="segmented">${['auto', 'on', 'off'].map((v) => `<label><input type="radio" name="touchPad" value="${v}" ${s.touchPad === v ? 'checked' : ''}><span>${v[0].toUpperCase() + v.slice(1)}</span></label>`).join('')}</span>
       </fieldset>
+      <section class="setting install" hidden>
+        <span><span class="setting-name">Add to Home Screen</span>
+        <span class="muted">Opens full screen like an app, without browser bars.</span>
+        <ul class="install-steps muted">
+          <li><b>iPhone (Safari):</b> tap Share (square with arrow), then Add to Home Screen.</li>
+          <li><b>Android (Chrome):</b> tap the menu (three dots), then Add to Home Screen.</li>
+        </ul></span>
+      </section>
       <button class="ghost signout" type="button">Sign out</button>
     </form>`;
   const form = root.querySelector('form');
+  // Hide once launched from the home screen (navigator.standalone is iOS Safari).
+  root.querySelector('.install').hidden = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
   root.querySelector('.back').onclick = () => ctx.show('library');
   root.querySelector('.signout').onclick = () => signOut(auth);
   form.onchange = async (ev) => {

@@ -92,6 +92,8 @@ input[role=switch]:checked::after { transform: translateX(20px); background: var
 .segmented span { display: block; padding: 8px 14px; min-width: 52px; text-align: center; cursor: pointer; }
 .segmented input:checked + span { background: var(--accent); color: var(--accent-ink); font-weight: 700; }
 .segmented input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: -3px; }
+.install-steps { list-style: none; padding: 0; margin: 6px 0 0; display: flex; flex-direction: column; gap: 8px; font-size: .85rem; text-wrap: pretty; }
+.install-steps b { font-weight: 600; }
 .signout { align-self: flex-start; margin-top: 28px; }
 
 /* Play */
