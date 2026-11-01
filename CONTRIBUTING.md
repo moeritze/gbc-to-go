@@ -57,5 +57,5 @@ npm test
 Versions follow [semver](https://semver.org/): patch for fixes, minor for features, major for breaking changes.
 
 - Add an entry under `## [Unreleased]` in `CHANGELOG.md` in every PR that changes behavior.
-- To release: bump `version` in `package.json`, move the Unreleased entries into a dated `## [X.Y.Z] - YYYY-MM-DD` section, update the compare links at the bottom, and merge.
+- To release: bump `version` in `package.json` and `web/version.js`, move the Unreleased entries into a dated `## [X.Y.Z] - YYYY-MM-DD` section, update the compare links at the bottom, and merge.
 - Then tag the merge commit: `git tag vX.Y.Z && git push origin vX.Y.Z`. The Release workflow checks the tag against `package.json` and publishes a GitHub Release from the changelog section.
