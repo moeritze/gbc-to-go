@@ -16,7 +16,7 @@ Your own Game Boy / Game Boy Color player on the web, on your own free Firebase 
 <p align="center">
   <img src="docs/screenshots/play-desktop.png" width="770" alt="Playing on a laptop with the keyboard">
 </p>
-<p align="center"><sub>Game shown: <a href="https://github.com/AntonioND/ucity">µCity</a> by Antonio Niño Díaz, open-source homebrew (code GPLv3+, graphics CC BY-SA 4.0). Other library titles are placeholders.</sub></p>
+<p align="center"><sub>Game shown: <a href="https://github.com/AntonioND/ucity">µCity</a> by Antonio Niño Díaz, open-source homebrew (code GPLv3+, graphics <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>). These screenshots are licensed CC BY-SA 4.0. Other library titles are placeholders.</sub></p>
 
 > **Security, read this first**
 > - Setup creates exactly **one** owner account with a **random password that is shown once**. Put it in your password manager right away.
