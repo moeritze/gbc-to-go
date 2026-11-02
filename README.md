@@ -8,6 +8,16 @@ Your own Game Boy / Game Boy Color player on the web, on your own free Firebase 
 - One owner per site. Nobody else gets in.
 - Runs on the free Firebase Spark plan. No credit card.
 
+<p align="center">
+  <img src="docs/screenshots/library.png" width="250" alt="Library on a phone: a Continue card for the last game and a grid of uploaded games">
+  <img src="docs/screenshots/play.png" width="250" alt="Playing on a phone: game screen, Save state and Load state buttons, touch D-pad, A, B, Select and Start">
+  <img src="docs/screenshots/settings.png" width="250" alt="Settings on a phone: cloud saves, save states, sound and touch pad options">
+</p>
+<p align="center">
+  <img src="docs/screenshots/play-desktop.png" width="770" alt="Playing on a laptop with the keyboard">
+</p>
+<p align="center"><sub>Game shown: <a href="https://github.com/AntonioND/ucity">µCity</a> by Antonio Niño Díaz, open-source homebrew (code GPLv3+, graphics CC BY-SA 4.0). Other library titles are placeholders.</sub></p>
+
 > **Security, read this first**
 > - Setup creates exactly **one** owner account with a **random password that is shown once**. Put it in your password manager right away.
 > - **Never commit** `deploy.env` or `web/firebase-config.js`. They are in `.gitignore`; keep it that way.
